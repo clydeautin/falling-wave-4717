@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   
   get '/contestants', to: "contestants#index"
 
-  post '/contestants/:id', to: "contestants#add_project"
+  post '/projects/:id/contestants', to: "contestant_projects#create"
 end

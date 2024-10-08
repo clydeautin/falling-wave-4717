@@ -6,7 +6,7 @@
 <p>Number of contestants: <%= @project.contestant_count %></p>
 <p>Average years of xp of contestants: <%= @project.avg_years_xp %></p>
 <h3>Add Contestant to Project</h3>
-<%= form_with url: project_contestants_path(@project), method: :post do %>
+<%= form_with url: "/projects/#{@project.id}/contestants", method: :post, local: true, data: { turbo: false } do %>
   <div>
     <%= label_tag :contestant_id, "Contestant ID" %>
     <%= text_field_tag :contestant_id %>

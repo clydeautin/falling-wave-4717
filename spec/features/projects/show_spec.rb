@@ -13,7 +13,7 @@ RSpec.describe 'Project show page', type: :feature do
     @lit_fit = @furniture_challenge.projects.create(name: "Litfit", material: "Lamp")
 
     @jay = Contestant.create(name: "Jay McCarroll", age: 40, hometown: "LA", years_of_experience: 13)
-    @gretchen = Contestant.create(name: "@Gretchen Jones", age: 36, hometown: "NYC", years_of_experience: 12)
+    @gretchen = Contestant.create(name: "Gretchen Jones", age: 36, hometown: "NYC", years_of_experience: 12)
     @kentaro = Contestant.create(name: "Kentaro Kameyama", age: 30, hometown: "Boston", years_of_experience: 8)
     @erin = Contestant.create(name: "Erin Robertson", age: 44, hometown: "Denver", years_of_experience: 15)
 
@@ -26,16 +26,6 @@ RSpec.describe 'Project show page', type: :feature do
     ContestantProject.create(contestant_id: @erin.id, project_id: @boardfit.id)
     end
 
-    #     User Story 1 of 3
-
-    # As a visitor,
-    # When I visit a project's show page ("/projects/:id"),
-    # I see that project's name and material
-    # And I also see the theme of the challenge that this project belongs to.
-    # (e.g.    Litfit
-    #     Material: Lamp Shade
-    #   Challenge Theme: Apartment Furnishings)
-
     it "shows the theme of the challenge" do
         visit "/projects/#{@news_chic.id}"
 
@@ -45,15 +35,6 @@ RSpec.describe 'Project show page', type: :feature do
 
     end
 
-    #     User Story 3 of 3
-    # As a visitor,
-    # When I visit a project's show page
-    # I see a count of the number of contestants on this project
-
-    # (e.g.    Litfit
-    #     Material: Lamp Shade
-    #   Challenge Theme: Apartment Furnishings
-    #   Number of Contestants: 3 )
 
   it "shows the number of contestants" do
     visit "/projects/#{@news_chic.id}"
@@ -78,14 +59,16 @@ RSpec.describe 'Project show page', type: :feature do
     visit "/projects/#{@news_chic.id}"
 
     fill_in :contestant_id, with: @kentaro.id
-    click on "Add Contestant To Project"
+    click_button "Add Contestant to Project"
+
     expect(current_path).to eq("/projects/#{@news_chic.id}")
-    expecpt(page).to have_content('Number of contestants: 3')
+    expect(page).to have_content('Number of contestants: 3')
 
     visit "/contestants"
-    within "#contestant-#{kentaro.id}" do
-      expecpt(page).to have_content(@news_chic.name)
+    within "#contestant-#{@kentaro.id}" do
+      expect(page).to have_content(@news_chic.name)
     end
+    save_and_open_page
   end
 
 end
