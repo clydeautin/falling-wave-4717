@@ -55,17 +55,37 @@ RSpec.describe 'Project show page', type: :feature do
     #   Challenge Theme: Apartment Furnishings
     #   Number of Contestants: 3 )
 
-    it "shows the number of contestants" do
-        visit "/projects/#{@news_chic.id}"
+  it "shows the number of contestants" do
+    visit "/projects/#{@news_chic.id}"
 
-        expect(page).to have_content("2")
+    expect(page).to have_content("2")
+  end
 
+  it "shows the average years of experience for the contestants" do
+    visit "/projects/#{@news_chic.id}"
+
+    expect(page).to have_content("Average years of xp of contestants: 12.5")
+  end
+
+  it 'has a form to add a contestant to a project' do
+    visit "/projects/#{@news_chic.id}"
+
+    expect(page).to have_content("Add Contestant to Project")
+    expect(page).to have_button("Add Contestant")
+  end
+
+  it 'can add a contestant to a project' do
+    visit "/projects/#{@news_chic.id}"
+
+    fill_in :contestant_id, with: @kentaro.id
+    click on "Add Contestant To Project"
+    expect(current_path).to eq("/projects/#{@news_chic.id}")
+    expecpt(page).to have_content('Number of contestants: 3')
+
+    visit "/contestants"
+    within "#contestant-#{kentaro.id}" do
+      expecpt(page).to have_content(@news_chic.name)
     end
-
-    it "shows the average years of experience for the contestants" do
-      visit "/projects/#{@news_chic.id}"
-
-      expect(page).to have_content("Average years of xp of contestants: 12.5")
-    end
+  end
 
 end

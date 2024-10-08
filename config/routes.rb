@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   get '/projects/:id', to: "projects#show"
   
   get '/contestants', to: "contestants#index"
+
+  post '/contestants/:id', to: "contestants#add_project"
 end
