@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe 'Project show page', type: :feature do
+RSpec.describe 'Contestant Index page', type: :feature do
     before(:each) do
 
     @recycled_material_challenge = Challenge.create!(theme: "Recycled Material", project_budget: 1000)
@@ -26,8 +26,7 @@ RSpec.describe 'Project show page', type: :feature do
     ContestantProject.create(contestant_id: @erin.id, project_id: @boardfit.id)
     end
 
-    #     User Story 2 of 3
-
+    #     User Story 2 of 
     # As a visitor,
     # When I visit the contestants index page ("/contestants")
     # I see a list of names of all the contestants
@@ -41,7 +40,7 @@ RSpec.describe 'Project show page', type: :feature do
 
     it "show show all contestants and associated details" do
         visit "/contestants"
-        save_and_open_page
+
         expect(page).to have_content(@jay.name)
         expect(page).to have_content(@news_chic.name)
         expect(page).to have_content(@gretchen.name)
@@ -52,5 +51,14 @@ RSpec.describe 'Project show page', type: :feature do
         expect(page).to have_content(@boardfit.name)
         expect(page).to have_content(@erin.name)
         expect(page).to have_content(@boardfit.name)
+    end
+
+    it "should show the list of projects each contestant has been in under name" do
+        visit "/contestants"
+
+        within "#contestant-#{@jay.id}" do
+            expect(page).to have_content(@news_chic.name)
+        end
+
     end
 end
