@@ -31,10 +31,6 @@ RSpec.describe Contestant, type: :model do
     it {should have_many(:projects).through(:contestant_projects)}
   end
 
-  it "should count Contestants" do
-    expect(@news_chic.contestant_count).to eq(2)
-  end
-
   it "#project_list should return sentence with all projects worked on" do
     expect(@gretchen.project_list).to eq("News Chic and Upholstery Tuxedo")
   end
