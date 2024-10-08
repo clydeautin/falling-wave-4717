@@ -17,7 +17,6 @@ RSpec.describe 'Project show page', type: :feature do
     @kentaro = Contestant.create(name: "Kentaro Kameyama", age: 30, hometown: "Boston", years_of_experience: 8)
     @erin = Contestant.create(name: "Erin Robertson", age: 44, hometown: "Denver", years_of_experience: 15)
 
-
     ContestantProject.create(contestant_id: @jay.id, project_id: @news_chic.id)
     ContestantProject.create(contestant_id: @gretchen.id, project_id: @news_chic.id)
     ContestantProject.create(contestant_id: @gretchen.id, project_id: @upholstery_tux.id)
@@ -26,14 +25,13 @@ RSpec.describe 'Project show page', type: :feature do
     ContestantProject.create(contestant_id: @erin.id, project_id: @boardfit.id)
     end
 
-    it "shows the theme of the challenge" do
-        visit "/projects/#{@news_chic.id}"
+  it "shows the theme of the challenge" do
+    visit "/projects/#{@news_chic.id}"
 
-        expect(page).to have_content("News Chic")
-        expect(page).to have_content("Newspaper")
-        expect(page).to have_content("Recycled Material")
-
-    end
+    expect(page).to have_content("News Chic")
+    expect(page).to have_content("Newspaper")
+    expect(page).to have_content("Recycled Material")
+  end
 
 
   it "shows the number of contestants" do
